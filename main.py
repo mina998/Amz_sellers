@@ -3,8 +3,8 @@ import sys
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5 import QtCore
-from index import Index
-from monitor import Monitor
+from shop import Index
+from sellers import Sellers
 
 class Main(QWidget):
 
@@ -21,7 +21,7 @@ class Main(QWidget):
 
     def pop_monitor_win(self):
         self.index.hide()
-        self.monitor = Monitor(self)
+        self.monitor = Sellers(self)
         self.monitor.move(0,0)
         self.monitor.show()
         self.setWindowTitle(self.monitor.windowTitle())

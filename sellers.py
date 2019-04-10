@@ -6,10 +6,10 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox, QTableWidgetItem, QAbstractItemView
 
 from api.asin import Asin
-from resource.monitor import Ui_Form
+from resource.sellers import Ui_Form
 
 
-class Monitor(QWidget, Ui_Form):
+class Sellers(QWidget, Ui_Form):
     remind_signal = pyqtSignal(int)
 
     __logfile = '监控记录.txt'

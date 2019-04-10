@@ -5,7 +5,7 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QApplication
 from api.shop import Shop
-from resource.index import Ui_Form
+from resource.shop import Ui_Form
 
 class Index(QWidget, Ui_Form):
     # 弹出窗口信号

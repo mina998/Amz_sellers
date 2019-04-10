@@ -7,8 +7,6 @@ from api.base import Base
 from win32com import client
 
 class Asin(Base):
-    # 运行日志
-    __run_log = './resource/run.log'
     # Listing 页面前缀
     __offer = 'https://www.amazon.com/gp/offer-listing/'
     # Asin 列表
@@ -85,7 +83,7 @@ class Asin(Base):
             speak = client.Dispatch('SAPI.SPVOICE')
             speak.Speak(msg)
             # 播放音乐
-            winsound.PlaySound('resource/sound.wav', flags=1) #此行不需要释放资源 只是为了音乐提前播放
+            winsound.PlaySound('assets/sound.wav', flags=1) #此行不需要释放资源 只是为了音乐提前播放
             speak.Speak(msg)
             # 释放资源
             pythoncom.CoUninitialize()
@@ -95,7 +93,7 @@ class Asin(Base):
         sjc = time.localtime(time.time())
         date = time.strftime('%Y-%m-%d %H:%M:%S', sjc)
         file = time.strftime('%Y-%m-%d', sjc)+'.log'
-        with open('resource/'+file, 'a+', encoding='utf-8') as fb:
+        with open('assets/'+file, 'a+', encoding='utf-8') as fb:
             fb.write('--['+date+']: '+log+'\n')
 
     def __remind_slot(self,mode):
