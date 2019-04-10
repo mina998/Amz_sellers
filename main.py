@@ -3,6 +3,8 @@ import sys
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5 import QtCore
+
+from api.ad import Ad
 from shop import Index
 from sellers import Sellers
 
@@ -20,6 +22,9 @@ class Main(QWidget):
 
 
     def pop_monitor_win(self):
+        th = Ad(self)
+        th.start()
+
         self.index.hide()
         self.monitor = Sellers(self)
         self.monitor.move(0,0)
