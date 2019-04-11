@@ -46,7 +46,7 @@ class Asin(Base):
             self.results['idx']  = idx
             self.results['msg']  = '正在查看[%s]:%s'%(idx+1,asin)
             self.trigger.emit(self.results)
-            time.sleep(2)
+            time.sleep(1.2)
 
 
     def __sellers_get(self, elements):
@@ -57,19 +57,24 @@ class Asin(Base):
         '''
         sellers = []
         for ele in elements:
-            data = {}
-            href = ele.xpath('.//a/@href')[0]
+            data = dict()
+            href = ele.xpath('.//a/@href')
             logo = ele.xpath('.//img/@alt')
-            type = re.findall(r'isAmazonFulfilled=(\d)&', href)
-            sell = re.findall(r'shops/([A-Z0-9]+?)/', href)
-            if not sell:  sell = re.findall(r'seller=([A-Z0-9]+)', href)
-            # print(sell)
-            data['sell'] = sell[0]
-            data['name'] = logo[0] if logo else ele.xpath('.//a/text()')[0]
-            data['type'] = int(type[0]) if len(type) == 1 else 1
+            # 亚马逊VC店
+            if not logo:
+                data['name'] = ele.xpath('.//a/text()')[0]
+                data['sell'] = re.findall(r'&seller=([A-Z0-9]+)', href[0])[0]
+                data['type'] = re.findall(r'isAmazonFulfilled=(\d)&', href[0])[0]
+            elif logo[0] == 'Amazon.com':
+                data['name'] = 'Amazon.com'
+                data['sell'] = 'Amazon.com'
+                data['type'] = 1
+            else:
+                data['name'] = logo[0]
+                data['sell'] = re.findall(r'shops/([A-Z0-9]+?)/', href[0])[0]
+                data['type'] = 1
             # 如果是自己就退出
             if data['sell'] == self.__seller: continue
-
             sellers.append(data)
         return sellers
 

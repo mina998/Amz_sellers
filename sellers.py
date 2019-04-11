@@ -2,7 +2,6 @@
 import os
 import sys
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QApplication, QMessageBox, QTableWidgetItem, QAbstractItemView
 
 from api.asin import Asin
@@ -22,21 +21,6 @@ class Sellers(QWidget, Ui_Form):
 
         if parent: parent.monitor_tables_data_trigger.connect(self.__set_tables_data)
 
-    def __set_tables_data2(self, data, seller):
-        self.__asins = data
-        self.__seller= seller
-        model = QStandardItemModel(self.tables)
-        model.setColumnCount(3)
-        model.setHeaderData(0, Qt.Horizontal, 'ASIN')
-        model.setHeaderData(1, Qt.Horizontal, '最后查询时间')
-        model.setHeaderData(2, Qt.Horizontal, '发现跟卖')
-
-        model.setRowCount(len(data))
-        for i, item in enumerate(data):
-            model.setItem(i, 0, QStandardItem(item))
-        self.tables.setModel(model)
-        # 开始
-        self.__start()
 
     def __set_tables_data(self, data, seller):
         self.__asins = data
@@ -48,13 +32,13 @@ class Sellers(QWidget, Ui_Form):
 
         for i, item in enumerate(data):
             self.tables.setItem(i, 0, QTableWidgetItem(item))
-        self.tables.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        # 禁止编辑
+        # self.tables.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tables.setSelectionBehavior(QAbstractItemView.SelectRows)
         # self.tables.resizeColumnsToContents()
         self.tables.setColumnWidth(0,100)
         self.tables.setColumnWidth(1,155)
         self.tables.setColumnWidth(2,75)
-
         # 开始
         self.__start()
 
